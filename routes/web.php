@@ -20,3 +20,7 @@ Route::get('/', function () {
 
 // Route buat adminController Pake Resouce
 Route::resource('admin', adminController::class);
+
+
+
+
