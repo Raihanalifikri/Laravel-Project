@@ -26,7 +26,7 @@ class BuahController extends Controller
      */
     public function create()
     {
-        //
+        return view('buah.create');
     }
 
     /**
@@ -37,7 +37,22 @@ class BuahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // melakunan validasi
+        $this->validate($request,[
+            'name'=> 'required',
+            'harga'=> 'required',
+            'warna'=> 'required'
+        ]);
+
+        // simpan data kedalam database.
+        $buah = Buah::create([
+            'name'=> $request->name,
+            'slug'=> Str::slug($request->name),
+            'harga'=> $request->harga,
+            'warna'=> $request->warna
+        ]);
+
+        return redirect()->route('buah.index');
     }
 
     /**

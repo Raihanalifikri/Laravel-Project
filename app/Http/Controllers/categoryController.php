@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class categoryController extends Controller
@@ -23,7 +25,7 @@ class categoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -34,7 +36,21 @@ class categoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        // Simpan data ke data base
+        if(
+            Category::created([
+                'name' => $request->name,
+                'slug'=> Str::slug($request->name)
+            ])
+        ) {
+            return redirect()->route('category.index')->with(['success'], 'lorem ipsum');
+        } else {
+            return redirect()->route('category.index')->with(['error'], 'laravel');
+        }
     }
 
     /**
