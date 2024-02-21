@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class adminController extends Controller
+class categoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class adminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        return view('category.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class adminController extends Controller
      */
     public function create()
     {
-        return view('admin.create');
+        //
     }
 
     /**
