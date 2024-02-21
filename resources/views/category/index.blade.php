@@ -14,5 +14,29 @@
             {{ session('success') }}
         </div>
     @endif
+
+    <table class="table">
+        <th>
+           <td>No</td>
+           <td>Name</td>
+           <td>Action</td>
+        </th>
+        <tbody>
+            @foreach ( $category as $row )
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $row->name }}</td>
+                    <td>
+                        <a href="{{ route('category.show', $row->id) }}" class="btn btn-primary">Laravel</a>
+                        <form action="{{ route('category.destroy', $row->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 @endsection

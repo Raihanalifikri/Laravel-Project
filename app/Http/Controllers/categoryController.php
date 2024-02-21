@@ -15,7 +15,10 @@ class categoryController extends Controller
      */
     public function index()
     {
-        return view('category.index');
+        // retrun ke index.blade.pho
+        $category = Category::all();
+
+        return view('category.index', compact('category'));
     }
 
     /**
@@ -42,12 +45,12 @@ class categoryController extends Controller
 
         // Simpan data ke data base
         if(
-            Category::created([
+            Category::create([
                 'name' => $request->name,
                 'slug'=> Str::slug($request->name)
             ])
         ) {
-            return redirect()->route('category.index')->with(['success'], 'lorem ipsum');
+            return redirect()->route('category.index')->with(['success' => 'laravel']);
         } else {
             return redirect()->route('category.index')->with(['error'], 'laravel');
         }
@@ -61,7 +64,9 @@ class categoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::findOrfail($id);
+
+        return view('category.show', compact('category'));
     }
 
     /**
@@ -95,6 +100,10 @@ class categoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::findOrfail($id);
+
+        $category->delete();
+
+        return redirect()->route('category.index')->with(['success' => 'Data Berhasil di buat']);
     }
 }
